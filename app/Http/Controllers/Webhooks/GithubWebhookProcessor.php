@@ -36,7 +36,7 @@ class GithubWebhookProcessor
             throw new BadRequestHttpException('signature has invalid format');
         }
 
-        $known_signature = hash_hmac('sha1', $$request->getContent(), $known_token);
+        $known_signature = hash_hmac('sha1', $request->getContent(), $known_token);
 
         if (! hash_equals($known_signature, $signature_parts[1])) {
             throw new UnauthorizedException('Could not verify request signature ' . $signature_parts[1]);
